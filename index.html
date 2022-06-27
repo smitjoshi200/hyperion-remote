@@ -3,7 +3,10 @@
 <head>
     <title>Hyperion Remote</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="jquery/jquery.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <!--<script src="jquery/jquery.js"></script>-->
     <script src="process_data.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -20,6 +23,11 @@
         </div>
         <div class="pnl-div" id=brightness-control>
             <h3 class="sub-heading">Brightness</h3>
+            <div id="brightness-range">
+                <!-- Create Brightness slider -->
+                <span id="brightness-level">0</span>
+                <input id="brightness-slider" class="range" type="range" value="0" min="0" max="100"></input>
+            </div>
         </div>
         <div class="pnl-div" id="game-panel">
             <h3 class="sub-heading">Game Mode</h3>
@@ -28,12 +36,12 @@
                 <span class="slider round"></span>
             </label>
             <br><br>
-            <button class="color-button" id="red"></button>
-            <button class="color-button" id="blue"></button>
-            <button class="color-button" id="green"></button>
-            <button class="color-button" id="lime"></button>
-            <button class="color-button" id="yellow"></button>
-            <button class="color-button" id="orange"></button>
+            <!-- Create color input -->
+            <div class="container">
+                <input id="color-input" type="color" class="field-radio"></input>
+                <span class="container" id="color_val"></span>
+            </div>
+
         </div>
     </div>
 </body>
