@@ -5,42 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-    <!--<script src="jquery/jquery.js"></script>-->
     <script src="process_data.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
 </head>
 
-<body>
-    <div id="heading">
-        <h2>Hyperion LED Remote</h2>
-    </div>
-    <div id="panel">
-        <div class="pnl-div" id="control-buttons">
-            <h3 class="sub-heading">Switch</h3>
-            <button class="button" id="led_on">ON</button>
-            <button class="button" id="led_off">OFF</button>
+<body class="m-3 p-2">
+    <div class="flex flex-col justify-evenly content-between items-center w-full">
+        <div id="power-control" class="flex flex-auto justify-center align-middle items-center">
+            <div class="power-switch">
+                <input type="checkbox" id="led-power-switch" />
+                <div class="button">
+                    <svg class="power-off">
+                        <use xlink:href="#line" class="line" />
+                        <use xlink:href="#circle" class="circle" />
+                    </svg>
+                    <svg class="power-on">
+                        <use xlink:href="#line" class="line" />
+                        <use xlink:href="#circle" class="circle" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150" id="line">
+                    <line x1="75" y1="34" x2="75" y2="58" />
+                </symbol>
+                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150" id="circle">
+                    <circle cx="75" cy="80" r="35" />
+                </symbol>
+            </svg>
         </div>
-        <div class="pnl-div" id=brightness-control>
-            <h3 class="sub-heading">Brightness</h3>
-            <div id="brightness-range">
+        <br>
+        <br>
+
+        <div id=brightness-control class="flex flex-auto flex-col z-20">
+            <h3 class="text-white text-center text-xl">Brightness</h3>
+            <div id="brightness-range" class="flex flex-1 flex-col">
                 <!-- Create Brightness slider -->
-                <span id="brightness-level">0</span>
-                <input id="brightness-slider" class="range" type="range" value="0" min="0" max="100"></input>
+                <input class="my-5" id="brightness-slider" type="range" value="0" min="0" max="100"></input>
+                <div class="self-center justify-self-center align-middle justify-center">
+                    <span id="brightness-level"
+                        class="text-white text-center text-2xl decoration-wavy mx-2 py-1">0</span>
+                </div>
             </div>
         </div>
-        <div class="pnl-div" id="game-panel">
-            <h3 class="sub-heading">Game Mode</h3>
-            <label class="switch">
+        <br>
+        <br>
+
+        <div id="game-panel" class="flex flex-1 flex-col justify-center align-middle m-1">
+            <h3 class="text-white text-center text-xl">Game Mode</h3>
+            <label class="toggler-wrapper style-1 self-center my-5">
                 <input id="game-mode-toggle" type="checkbox">
-                <span class="slider round"></span>
+                <div class="toggler-slider">
+                    <div class="toggler-knob"></div>
+                </div>
             </label>
-            <br><br>
             <!-- Create color input -->
-            <div class="container">
-                <input id="color-input" type="color" class="field-radio"></input>
-                <span class="container" id="color_val"></span>
+            <div class="self-center p-2">
+                <input id="color-input" class="rounded-full border-0 scale-110" type="color"></input>
+                <span id="color_val"></span>
             </div>
+        </div>
+        <br>
+        <br>
+
+        <div id="music-panel" class="flex flex-col justify-center align-middle m-1">
+            <h3 class="text-white text-center text-xl">Music Mode</h3>
+            <label class="toggler-wrapper style-1 self-center my-5">
+                <input id="music-mode-toggle" type="checkbox">
+                <div class="toggler-slider">
+                    <div class="toggler-knob"></div>
+                </div>
+            </label>
 
         </div>
     </div>

@@ -1,16 +1,10 @@
 $(document).ready(function () {
     //DOM cache
-    var $led_on_button = $("#led_on");
-    var $led_off_button = $("#led_off");
+    var $led_power_switch = $("#led-power-switch");
     var $brightness_level = $("#brightness-level");
     var $gamemode_switch = $("#game-mode-toggle");
+    var $musicmode_switch = $("#music-mode-toggle");
     var $brightness_slider = $("#brightness-slider");
-    var $red = $("#red");
-    var $blue = $("#blue");
-    var $green = $("#green");
-    var $lime = $("#lime");
-    var $yellow = $("#yellow");
-    var $orange = $("#orange");
     var $color_input = $("#color-input");
     var $color_val = $("#color-val");
     //Misc variables
@@ -47,20 +41,20 @@ $(document).ready(function () {
 
     function controlLEDS() {
         var $toggle_lights = '';
-        //Detect button click
-        $led_on_button.click(function () {
-            console.log("LEDs turned on");
-            $led_status = true;
-            $toggle_lights = 'http://192.168.1.117:8090/json-rpc?request=%7B%22command%22:%22componentstate%22,%22componentstate%22:%7B%22component%22:%22ALL%22,%22state%22:' + $led_status.toString() + '%7D%7D';
-            windowOperation($my_window, $toggle_lights);
-        }); // On button clicked
-
-        $led_off_button.click(function () {
-            console.log("LEDs turned off");
-            $led_status = false;
-            $toggle_lights = 'http://192.168.1.117:8090/json-rpc?request=%7B%22command%22:%22componentstate%22,%22componentstate%22:%7B%22component%22:%22ALL%22,%22state%22:' + $led_status.toString() + '%7D%7D';
-            windowOperation($my_window, $toggle_lights);
-        }); //Off button clicked
+        // Check if checkbox is checked
+        $led_power_switch.change(function () {
+            if ($(this).is(":checked")) {
+                console.log("LEDs turned on");
+                $led_status = true;
+                $toggle_lights = 'http://192.168.1.117:8090/json-rpc?request=%7B%22command%22:%22componentstate%22,%22componentstate%22:%7B%22component%22:%22ALL%22,%22state%22:' + $led_status.toString() + '%7D%7D';
+                windowOperation($my_window, $toggle_lights);
+            } else {
+                console.log("LEDs turned off");
+                $led_status = false;
+                $toggle_lights = 'http://192.168.1.117:8090/json-rpc?request=%7B%22command%22:%22componentstate%22,%22componentstate%22:%7B%22component%22:%22ALL%22,%22state%22:' + $led_status.toString() + '%7D%7D';
+                windowOperation($my_window, $toggle_lights);
+            }
+        });
     }
 
     function controlBrightness() {
@@ -99,10 +93,27 @@ $(document).ready(function () {
         });
     }
 
+    function toggleMusicMode() {
+        var $set_musicmode = '';
+        $musicmode_switch.click(function () {
+            if ($(this).prop("checked") == true) {
+                console.log("Musicmode On");
+                $set_musicmode = "http://192.168.1.117:8090/json-rpc?request=%7B%20%20%22command%22:%22effect%22,%20%20%22effect%22:%7B%20%20%20%20%22name%22:%22Music:%20stereo%20for%20LED%20strip%20(GREEN)%22%20%20%7D,%20%20%22duration%22:0,%20%20%22priority%22:66,%20%20%22origin%22:%22JSON%20API%22%7D";
+                windowOperation($my_window, $set_musicmode);
+            } else if ($(this).prop("checked") == false) {
+                console.log("Musicmode Off");
+                $set_musicmode = "http://192.168.1.117:8090/json-rpc?request=%7B%22command%22:%22clear%22,%22priority%22:66%7D";
+                windowOperation($my_window, $set_musicmode);
+            }
+        });
+    }
+
+
     function run() {
         controlLEDS();
         controlBrightness();
         toggleGamemode();
+        toggleMusicMode();
     }
 
     run();
