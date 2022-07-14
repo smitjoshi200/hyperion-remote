@@ -1,3 +1,7 @@
-# hyperion-remote
+# Hyperion / HyperHDR Simple Web-based remote
 
-## Remote using Hyperion or similar forks JSON API
+## A remote controller to control Hyperion based instances using the Built in API of the Hyperion LED Software.
+[Hyperion Github](https://github.com/hyperion-project/hyperion.ng)
+
+
+***Version 1.1.0***
