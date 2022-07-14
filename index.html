@@ -5,43 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-    <!--<script src="jquery/jquery.js"></script>-->
     <script src="process_data.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
 </head>
 
 <body>
-    <div id="heading">
-        <h2>Hyperion LED Remote</h2>
-    </div>
-    <div id="panel">
-        <div class="pnl-div" id="control-buttons">
-            <h3 class="sub-heading">Switch</h3>
-            <button class="button" id="led_on">ON</button>
-            <button class="button" id="led_off">OFF</button>
+    <div class="flex flex-col m-2 border-2 border-black divide-y-4 content-center">
+        <div class="text-red-900">
+            <h2>Hyperion LED Remote</h2>
         </div>
-        <div class="pnl-div" id=brightness-control>
-            <h3 class="sub-heading">Brightness</h3>
-            <div id="brightness-range">
-                <!-- Create Brightness slider -->
-                <span id="brightness-level">0</span>
-                <input id="brightness-slider" class="range" type="range" value="0" min="0" max="100"></input>
+        <div>
+            <div id="control-buttons">
+                <h3>Switch</h3>
+                <button id="led_on">ON</button>
+                <button id="led_off">OFF</button>
             </div>
-        </div>
-        <div class="pnl-div" id="game-panel">
-            <h3 class="sub-heading">Game Mode</h3>
-            <label class="switch">
-                <input id="game-mode-toggle" type="checkbox">
-                <span class="slider round"></span>
-            </label>
-            <br><br>
-            <!-- Create color input -->
-            <div class="container">
-                <input id="color-input" type="color" class="field-radio"></input>
-                <span class="container" id="color_val"></span>
+            <div id=brightness-control>
+                <h3>Brightness</h3>
+                <div id="brightness-range">
+                    <!-- Create Brightness slider -->
+                    <span id="brightness-level">0</span>
+                    <input id="brightness-slider" type="range" value="0" min="0" max="100"></input>
+                </div>
             </div>
-
+            <div id="game-panel">
+                <h3>Game Mode</h3>
+                <label>
+                    <input id="game-mode-toggle" type="checkbox">
+                    <span></span>
+                </label>
+                <br><br>
+                <!-- Create color input -->
+                <div>
+                    <input id="color-input" type="color"></input>
+                    <span id="color_val"></span>
+                </div>
+            </div>
         </div>
     </div>
 </body>
