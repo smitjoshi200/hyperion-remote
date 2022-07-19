@@ -265,3 +265,8 @@ body .socials > a:hover {
 *:focus {
   outline: none !important;
 }
+
+.hide {
+  display: none;
+}
+
