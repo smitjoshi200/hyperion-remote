@@ -1,16 +1,5 @@
 <?php
-// $command = '';
-// if (isset($_POST) && $_POST != '') {
-//     $command = $_POST;
-// }
-// else {
-//     $command = "turn_on";
-// }
 
-// $send = $command;
-// $data = json_encode($send);
-// echo var_dump($data);
-// echo "<br>";
 $data = json_decode(file_get_contents('php://input'), true);
 //echo var_dump($data);
 $command = json_encode($data);

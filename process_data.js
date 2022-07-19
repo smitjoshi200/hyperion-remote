@@ -7,10 +7,12 @@ $(document).ready(function () {
     var $brightness_slider = $("#brightness-slider");
     var $color_input = $("#color-input");
     var $color_val = $("#color-val");
+    var $music_selected_option = $("#music-mode-select");
+    var $music_mode_display = $("#music-mode-display");
     //Misc variables
     var $led_status = false;
-    var $my_window;
-    var timeout = 100;
+    $music_mode_display.text(localStorage.getItem("music_mode"));
+
 
     $color_input.on("change", function () {
         $current_color = $color_input.val();
@@ -28,17 +30,6 @@ $(document).ready(function () {
         } : null;
     }
 
-
-
-    function windowOperation($window, $command) {
-        $window = window.open($command);
-        $window.blur()
-        window.focus();
-        setTimeout(function () {
-            $window.close()
-        }, timeout);
-    }
-
     function controlLEDS() {
         var $toggle_lights = '';
         // Check if checkbox is checked
@@ -46,7 +37,7 @@ $(document).ready(function () {
             if ($(this).is(":checked")) {
                 console.log("LEDs turned on");
                 $led_status = true;
-                //send ajax post request to http://192.168.1.117/json-rpc
+                //send ajax post request to process_requests.php
                 $.ajax({
                     url: 'process_requests.php',
                     type: 'POST',
@@ -63,8 +54,6 @@ $(document).ready(function () {
                         console.log(data);
                     }
                 });
-                //$toggle_lights = 'http://192.168.1.117:8090/json-rpc?request=%7B%22command%22:%22componentstate%22,%22componentstate%22:%7B%22component%22:%22ALL%22,%22state%22:' + $led_status.toString() + '%7D%7D';
-                //windowOperation($my_window, $toggle_lights);
             } else {
                 console.log("LEDs turned off");
                 $led_status = false;
@@ -84,8 +73,6 @@ $(document).ready(function () {
                         console.log(data);
                     }
                 });
-                //$toggle_lights = 'http://192.168.1.117:8090/json-rpc?request=%7B%22command%22:%22componentstate%22,%22componentstate%22:%7B%22component%22:%22ALL%22,%22state%22:' + $led_status.toString() + '%7D%7D';
-                //windowOperation($my_window, $toggle_lights);
             }
         });
     }
@@ -112,8 +99,6 @@ $(document).ready(function () {
                 success: function (data) {
                     console.log(data);
                 }
-                // $set_brightness = "http://192.168.1.117:8090/json-rpc?request=%7B%22command%22:%22adjustment%22,%22adjustment%22:%7B%22classic_config%22:false,%22brightness%22:" + $brightness_value.toString() + "%7D%7D";
-                // windowOperation($my_window, $set_brightness);
             });
         });
     }
@@ -138,8 +123,6 @@ $(document).ready(function () {
                         console.log(data);
                     }
                 });
-                // $set_gamemode = "http://192.168.1.117:8090/json-rpc?request=%7B%20%20%22command%22:%22color%22,%20%20%22color%22:%5B0,37,255%5D,%20%20%22duration%22:0,%20%20%22priority%22:100,%20%20%22origin%22:%22JSON%20API%22%7D";
-                // windowOperation($my_window, $set_gamemode);
             } else if ($(this).prop("checked") == false) {
                 console.log("Gamemode Off");
                 $.ajax({
@@ -154,8 +137,6 @@ $(document).ready(function () {
                         console.log(data);
                     }
                 });
-                // $set_gamemode = "http://192.168.1.117:8090/json-rpc?request=%7B%22command%22:%22clear%22,%22priority%22:100%7D"
-                // windowOperation($my_window, $set_gamemode);
             }
         });
         $color_input.on("change", function () {
@@ -163,7 +144,6 @@ $(document).ready(function () {
             $color_val.text($current_color);
             //convert hex to rgb
             var rgb = hexToRgb($current_color);
-            //console.log(rgb["r"]);
 
             $.ajax({
                 url: 'process_requests.php',
@@ -180,8 +160,6 @@ $(document).ready(function () {
                     console.log(data);
                 }
             });
-            // $set_gamemode = "http://192.168.1.117:8090/json-rpc?request=%7B%20%20%22command%22:%22color%22,%20%20%22color%22:%5B" + rgb["r"].toString() + "," + rgb["g"].toString() + "," + rgb["b"].toString() + "%5D,%20%20%22duration%22:0,%20%20%22priority%22:100,%20%20%22origin%22:%22JSON%20API%22%7D";
-            // windowOperation($my_window, $set_gamemode);
         });
     }
 
@@ -201,16 +179,13 @@ $(document).ready(function () {
                             "name": "Music: quatro for LED strip (RED)"
                         },
                         "duration": 0,
-                        "priority": 66,
+                        "priority": 64,
                         "origin": "JSON API"
                     }),
                     success: function (data) {
                         console.log(data);
                     }
                 });
-
-                // $set_musicmode = "http://192.168.1.117:8090/json-rpc?request=%7B%20%20%22command%22:%22effect%22,%20%20%22effect%22:%7B%20%20%20%20%22name%22:%22Music:%20stereo%20for%20LED%20strip%20(GREEN)%22%20%20%7D,%20%20%22duration%22:0,%20%20%22priority%22:66,%20%20%22origin%22:%22JSON%20API%22%7D";
-                // windowOperation($my_window, $set_musicmode);
             } else if ($(this).prop("checked") == false) {
                 console.log("Musicmode Off");
 
@@ -220,16 +195,183 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify({
                         "command": "clear",
-                        "priority": 66
+                        "priority": 64
                     }),
                     success: function (data) {
                         console.log(data);
                     }
                 });
-                // $set_musicmode = "http://192.168.1.117:8090/json-rpc?request=%7B%22command%22:%22clear%22,%22priority%22:66%7D";
-                // windowOperation($my_window, $set_musicmode);
             }
         });
+        //detect change in the selected option
+        $music_selected_option.change(function () {
+            console.log("music mode changed");
+            var $selected_option = $(this).val();
+            var $selected_mode = '';
+            //get text from selected option
+            var $selected_mode_text = $music_selected_option.find("option:selected").text();
+            localStorage.setItem("music_mode", $selected_mode_text);
+
+            $music_mode_display.text(localStorage.getItem('music_mode'));
+            localStorage.setItem('music_mode_id', $selected_option);
+            switch ($selected_option) {
+                case "1":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: pulse waves for LED strip (MULTI COLOR)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "2":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: fullscreen pulse (MULTI COLOR)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "3":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: fullscreen pulse (RED)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "4":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: fullscreen pulse (YELLOW)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "5":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: fullscreen pulse (GREEN)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "6":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: stereo for LED strip (MULTI COLOR)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "7":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: stereo for LED strip (RED)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "8":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: stereo for LED strip (YELLOW)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "9":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: stereo for LED strip (GREEN)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "10":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: quatro for LED strip (MULTI COLOR)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "11":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: quatro for LED strip (RED)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "12":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: quatro for LED strip (YELLOW)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "13":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: quatro for LED strip (GREEN)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+            }
+            localStorage.setItem("cuurent_music_mode", $selected_mode);
+            //send the selected option to the server
+            $.ajax({
+                url: "process_requests.php",
+                type: "POST",
+                data: JSON.stringify($selected_mode),
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
     }
 
 

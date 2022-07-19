@@ -12,6 +12,7 @@
 </head>
 
 <body class="m-3 p-2">
+
     <div class="flex flex-col justify-evenly content-between items-center w-full">
         <div id="power-control" class="flex flex-auto justify-center align-middle items-center">
             <div class="power-switch">
@@ -80,6 +81,29 @@
                     <div class="toggler-knob"></div>
                 </div>
             </label>
+            <!-- Create selection dropdown -->
+            <label class="self-center p-2 text-xl text-white">Choose Between Effects</label>
+            <div class="box">
+                <select id="music-mode-select" class="rounded-sm p-2 scale-130">
+                    <option value="1">Pulse Waves (Multicolor)</option>
+                    <option value="2">Fullscreen Pulse Waves (Multicolor)</option>
+                    <option value="3">Fullscreen Pulse Waves (RED)</option>
+                    <option value="4">Fullscreen Pulse Waves (YELLOW)</option>
+                    <option value="5">Fullscreen Pulse Waves (GREEN)</option>
+                    <option value="6">2-Sided (Multicolor)</option>
+                    <option value="7">2-Sided (RED)</option>
+                    <option value="8">2-Sided (YELLOW)</option>
+                    <option value="9">2-Sided (GREEN)</option>
+                    <option value="10">4-Sided (Multicolor)</option>
+                    <option value="11">4-Sided (RED)</option>
+                    <option value="12">4-Sided (YELLOW) [CALL OF DUTY MODE]</option>
+                    <option value="13">4-Sided (GREEN)</option>
+                </select>
+            </div>
+            <label class="self-center p-2 text-xl text-white">Active Now</label>
+            <div id="music-mode-display" class="self-center p-2 text-xl text-white">
+
+            </div>
 
         </div>
     </div>
