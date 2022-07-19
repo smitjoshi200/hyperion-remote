@@ -33,10 +33,12 @@ $(document).ready(function () {
     function controlLEDS() {
         var $toggle_lights = '';
         // Check if checkbox is checked
+
         $led_power_switch.change(function () {
             if ($(this).is(":checked")) {
                 console.log("LEDs turned on");
                 $led_status = true;
+                localStorage.setItem("led_status", true);
                 //send ajax post request to process_requests.php
                 $.ajax({
                     url: 'process_requests.php',
@@ -57,6 +59,7 @@ $(document).ready(function () {
             } else {
                 console.log("LEDs turned off");
                 $led_status = false;
+                localStorage.setItem("led_status", false);
                 $.ajax({
                     url: 'process_requests.php',
                     type: 'POST',
@@ -73,6 +76,17 @@ $(document).ready(function () {
                         console.log(data);
                     }
                 });
+            }
+            if (localStorage.getItem("led_status") == true) {
+                $led_power_switch.prop("checked", true);
+                console.log("LEDs are on");
+            }
+            else if (localStorage.getItem("led_status") == false) {
+                $led_power_switch.prop("checked", false);
+                console.log("LEDs are off");
+            }
+            else {
+                console.log("LEDs are off");
             }
         });
     }
@@ -167,21 +181,25 @@ $(document).ready(function () {
         var $set_musicmode = '';
         $musicmode_switch.click(function () {
             if ($(this).prop("checked") == true) {
-                console.log("Musicmode On");
+                $default_music_mode = JSON.stringify({
+                    "command": "effect",
+                    "effect": {
+                        "name": "Music: pulse waves for LED strip (MULTI COLOR)"
+                    },
+                    "duration": 0,
+                    "priority": 64,
+                    "origin": "JSON API"
+                });
 
+                console.log("Musicmode On");
+                if (localStorage.getItem("current_music_mode") === null) {
+                    localStorage.setItem("current_music_mode", $default_music_mode);
+                }
                 $.ajax({
                     url: 'process_requests.php',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({
-                        "command": "effect",
-                        "effect": {
-                            "name": "Music: quatro for LED strip (RED)"
-                        },
-                        "duration": 0,
-                        "priority": 64,
-                        "origin": "JSON API"
-                    }),
+                    data: localStorage.getItem("current_music_mode"),
                     success: function (data) {
                         console.log(data);
                     }
@@ -359,12 +377,12 @@ $(document).ready(function () {
                     };
                     break;
             }
-            localStorage.setItem("cuurent_music_mode", $selected_mode);
+            localStorage.setItem("current_music_mode", JSON.stringify($selected_mode));
             //send the selected option to the server
             $.ajax({
                 url: "process_requests.php",
                 type: "POST",
-                data: JSON.stringify($selected_mode),
+                data: localStorage.getItem("current_music_mode"),
                 contentType: "application/json",
                 success: function (data) {
                     console.log(data);
