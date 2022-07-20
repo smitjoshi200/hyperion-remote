@@ -5,11 +5,9 @@
 
 #### If the repository is cloned, please create `api-server.php` file and add the following code
 
-`
-<?php
+`<?php
 $api_url = {url or path to the server};
-?>
-`
+?>`
 
 #### The url will likely be `HYPERION_IP:HYPERION_PORT/json-rpc` 
 
