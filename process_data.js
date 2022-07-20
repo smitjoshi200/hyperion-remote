@@ -46,7 +46,7 @@ $(document).ready(function () {
             //Get the current brightness of the led
             $current_brightness = server_info.info.adjustment[0].brightness;
             //Set the brightness level
-            $brightness_level.text($current_brightness);
+            $brightness_level.text($current_brightness + "%");
             $brightness_slider.val($current_brightness);
 
             //Get the current gamemode status of the led
