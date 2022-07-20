@@ -170,7 +170,10 @@
   }
 }
 body {
-  background: #1B1A23;
+  background: linear-gradient(-45deg, #434343 0%, #000000 25%, #434343 50%, #000000 75%, #434343 100%);
+	background-size: 400% 400%;
+	animation: gradient 40s ease infinite;
+	height: 100vh;
   height: fit-content;
   font: 400 16px "Poppins", sans-serif;
   display: flex;
@@ -178,6 +181,19 @@ body {
   justify-content: flex-start;
   align-items: flex-start;
 }
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 body .socials {
   position: fixed;

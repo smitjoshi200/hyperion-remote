@@ -11,5 +11,5 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 $response = curl_exec($ch);
 curl_close($ch);
-echo var_dump(json_decode($response));
+echo $response;
 ?>
