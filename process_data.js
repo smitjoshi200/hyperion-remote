@@ -292,7 +292,7 @@ $(document).ready(function () {
                     $selected_mode = {
                         "command": "effect",
                         "effect": {
-                            "name": "Music: stereo for LED strip (MULTI COLOR)"
+                            "name": "Music: fullscreen pulse (BLUE)"
                         },
                         "duration": 0,
                         "priority": 64,
@@ -303,7 +303,7 @@ $(document).ready(function () {
                     $selected_mode = {
                         "command": "effect",
                         "effect": {
-                            "name": "Music: stereo for LED strip (RED)"
+                            "name": "Music: stereo for LED strip (MULTI COLOR)"
                         },
                         "duration": 0,
                         "priority": 64,
@@ -314,7 +314,7 @@ $(document).ready(function () {
                     $selected_mode = {
                         "command": "effect",
                         "effect": {
-                            "name": "Music: stereo for LED strip (YELLOW)"
+                            "name": "Music: stereo for LED strip (RED)"
                         },
                         "duration": 0,
                         "priority": 64,
@@ -325,7 +325,7 @@ $(document).ready(function () {
                     $selected_mode = {
                         "command": "effect",
                         "effect": {
-                            "name": "Music: stereo for LED strip (GREEN)"
+                            "name": "Music: stereo for LED strip (YELLOW)"
                         },
                         "duration": 0,
                         "priority": 64,
@@ -336,7 +336,7 @@ $(document).ready(function () {
                     $selected_mode = {
                         "command": "effect",
                         "effect": {
-                            "name": "Music: quatro for LED strip (MULTI COLOR)"
+                            "name": "Music: stereo for LED strip (GREEN)"
                         },
                         "duration": 0,
                         "priority": 64,
@@ -347,7 +347,7 @@ $(document).ready(function () {
                     $selected_mode = {
                         "command": "effect",
                         "effect": {
-                            "name": "Music: quatro for LED strip (RED)"
+                            "name": "Music: stereo for LED strip (BLUE)"
                         },
                         "duration": 0,
                         "priority": 64,
@@ -358,7 +358,7 @@ $(document).ready(function () {
                     $selected_mode = {
                         "command": "effect",
                         "effect": {
-                            "name": "Music: quatro for LED strip (YELLOW)"
+                            "name": "Music: quatro for LED strip (MULTI COLOR)"
                         },
                         "duration": 0,
                         "priority": 64,
@@ -369,7 +369,40 @@ $(document).ready(function () {
                     $selected_mode = {
                         "command": "effect",
                         "effect": {
+                            "name": "Music: quatro for LED strip (RED)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "14":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: quatro for LED strip (YELLOW)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "15":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
                             "name": "Music: quatro for LED strip (GREEN)"
+                        },
+                        "duration": 0,
+                        "priority": 64,
+                        "origin": "JSON API"
+                    };
+                    break;
+                case "16":
+                    $selected_mode = {
+                        "command": "effect",
+                        "effect": {
+                            "name": "Music: quatro for LED strip (BLUE)"
                         },
                         "duration": 0,
                         "priority": 64,
