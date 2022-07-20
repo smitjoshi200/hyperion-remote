@@ -11,8 +11,74 @@ $(document).ready(function () {
     var $music_mode_display = $("#music-mode-display");
     //Misc variables
     var $led_status = false;
-    $music_mode_display.text(localStorage.getItem("music_mode"));
+    var $current_status;
+    var $current_brightness;
+    var $current_gamemode
+    var current_color = '';
+    var current_red;
+    var current_green;
+    var current_blue;
 
+    $music_mode_display.text(localStorage.getItem("music_mode"));
+    ///----------------------------------------------------------
+    ///----------------------------------------------------------
+    //Send ajax request on page load to get the current status of the led
+
+    $.ajax({
+        url: "process_requests.php",
+        type: "POST",
+        data: JSON.stringify({
+            "command": "serverinfo"
+        }),
+        contentType: "application/json",
+        success: function (data) {
+            var server_info = JSON.parse(data);
+            //Get the current status of the led
+            $current_status = server_info.info.components[0].enabled;
+            if ($current_status == true) {
+                $led_power_switch.prop("checked", true);
+                $led_status = true;
+            } else {
+                $led_power_switch.prop("checked", false);
+                $led_status = false;
+            }
+
+            //Get the current brightness of the led
+            $current_brightness = server_info.info.adjustment[0].brightness;
+            //Set the brightness level
+            $brightness_level.text($current_brightness);
+            $brightness_slider.val($current_brightness);
+
+            //Get the current gamemode status of the led
+            $current_gamemode = server_info.info.activeLedColor.length;
+            //Set the gamemode switch
+            if ($current_gamemode == 1) {
+                $gamemode_switch.prop("checked", true);
+                current_color = server_info.info.activeLedColor[0]["RGB Value"];
+                current_red = current_color[0];
+                current_green = current_color[1];
+                current_blue = current_color[2];
+                var current_rgb_to_hex = rgbToHex(current_red, current_green, current_blue);
+                $color_input.val(current_rgb_to_hex);
+            } else {
+                $gamemode_switch.prop("checked", false);
+            }
+
+            //Get the current music mode status of the led
+            $current_musicmode = server_info.info.activeEffects.length;
+            //Set the music mode switch
+            if ($current_musicmode == 1) {
+                $musicmode_switch.prop("checked", true);
+                //Set the music mode display
+                $music_mode_display.text(server_info.info.activeEffects[0].name);
+                console.log(server_info.info.activeEffects[0].name);
+            } else {
+                $musicmode_switch.prop("checked", false);
+            }
+            console.log(server_info);
+
+        }
+    });
 
     $color_input.on("change", function () {
         $current_color = $color_input.val();
@@ -28,6 +94,10 @@ $(document).ready(function () {
             g: parseInt(result[2], 16),
             b: parseInt(result[3], 16)
         } : null;
+    }
+    //function to convert rgb to hex
+    function rgbToHex(r, g, b) {
+        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
     }
 
     function controlLEDS() {
