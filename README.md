@@ -12,6 +12,6 @@ $api_url = {url or path to the server};
 #### The url will likely be `HYPERION_IP:HYPERION_PORT/json-rpc` 
 ----
 #### The `build` folder contains an APK to install the remote as an app on Android devices 
-#### (It is currently buggy and may not work)
+(It is currently buggy and may not work)
 
 ***Version 1.1.0***
