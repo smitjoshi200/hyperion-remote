@@ -39,11 +39,9 @@
                 </symbol>
             </svg>
         </div>
-        <br>
-        <br>
 
-        <div id=brightness-control class="flex flex-auto flex-col z-20">
-            <h3 class="text-white text-center text-xl">Brightness</h3>
+        <div id=brightness-control class="flex flex-auto flex-col z-20 w-full align-middle m-auto">
+            <h3 class=" text-white text-center text-xl">Brightness</h3>
             <div id="brightness-range" class="flex flex-1 flex-col">
                 <!-- Create Brightness slider -->
                 <input class="my-5" id="brightness-slider" type="range" value="0" min="0" max="100"></input>
@@ -53,61 +51,58 @@
                 </div>
             </div>
         </div>
-        <br>
-        <br>
-
-        <div id="game-panel" class="flex flex-1 flex-col justify-center align-middle m-1">
-            <h3 class="text-white text-center text-xl">Game Mode</h3>
-            <label class="toggler-wrapper style-1 self-center my-5">
-                <input id="game-mode-toggle" type="checkbox">
-                <div class="toggler-slider">
-                    <div class="toggler-knob"></div>
+        <div id="mode-panel">
+            <div id="game-panel" class="flex flex-1 flex-col justify-center align-middle m-1">
+                <h3 class="text-white text-center text-xl">Game Mode</h3>
+                <label class="toggler-wrapper style-1 self-center my-5">
+                    <input id="game-mode-toggle" type="checkbox">
+                    <div class="toggler-slider">
+                        <div class="toggler-knob"></div>
+                    </div>
+                </label>
+                <!-- Create color input -->
+                <div class="self-center p-2">
+                    <input id="color-input" class="rounded-full border-0 scale-110" type="color"></input>
+                    <span id="color_val"></span>
                 </div>
-            </label>
-            <!-- Create color input -->
-            <div class="self-center p-2">
-                <input id="color-input" class="rounded-full border-0 scale-110" type="color"></input>
-                <span id="color_val"></span>
             </div>
-        </div>
-        <br>
-        <br>
 
-        <div id="music-panel" class="flex flex-col justify-center align-middle m-1">
-            <h3 class="text-white text-center text-xl">Music Mode</h3>
-            <label class="toggler-wrapper style-1 self-center my-5">
-                <input id="music-mode-toggle" type="checkbox">
-                <div class="toggler-slider">
-                    <div class="toggler-knob"></div>
+            <div id="music-panel" class="flex flex-col justify-center align-middle m-1">
+                <h3 class="text-white text-center text-xl">Music Mode</h3>
+                <label class="toggler-wrapper style-1 self-center my-5">
+                    <input id="music-mode-toggle" type="checkbox">
+                    <div class="toggler-slider">
+                        <div class="toggler-knob"></div>
+                    </div>
+                </label>
+                <!-- Create selection dropdown -->
+                <label class="self-center p-2 text-xl text-white">Choose Between Effects</label>
+                <div class="box self-center">
+                    <select id="music-mode-select" class="rounded-sm p-2 scale-130">
+                        <option value="1">Pulse Waves (Multicolor)</option>
+                        <option value="2">Fullscreen Pulse Waves (Multicolor)</option>
+                        <option value="3">Fullscreen Pulse Waves (RED)</option>
+                        <option value="4">Fullscreen Pulse Waves (YELLOW)</option>
+                        <option value="5">Fullscreen Pulse Waves (GREEN)</option>
+                        <option value="6">Fullscreen Pulse Waves (BLUE)</option>
+                        <option value="7">2-Sided (Multicolor)</option>
+                        <option value="8">2-Sided (RED)</option>
+                        <option value="9">2-Sided (YELLOW)</option>
+                        <option value="10">2-Sided (GREEN)</option>
+                        <option value="11">2-Sided (BLUE)</option>
+                        <option value="12">4-Sided (Multicolor)</option>
+                        <option value="13">4-Sided (RED)</option>
+                        <option value="14">4-Sided (YELLOW) [CALL OF DUTY MODE]</option>
+                        <option value="15">4-Sided (GREEN)</option>
+                        <option value="16">4-Sided (BLUE)</option>
+                    </select>
                 </div>
-            </label>
-            <!-- Create selection dropdown -->
-            <label class="self-center p-2 text-xl text-white">Choose Between Effects</label>
-            <div class="box">
-                <select id="music-mode-select" class="rounded-sm p-2 scale-130">
-                    <option value="1">Pulse Waves (Multicolor)</option>
-                    <option value="2">Fullscreen Pulse Waves (Multicolor)</option>
-                    <option value="3">Fullscreen Pulse Waves (RED)</option>
-                    <option value="4">Fullscreen Pulse Waves (YELLOW)</option>
-                    <option value="5">Fullscreen Pulse Waves (GREEN)</option>
-                    <option value="6">Fullscreen Pulse Waves (BLUE)</option>
-                    <option value="7">2-Sided (Multicolor)</option>
-                    <option value="8">2-Sided (RED)</option>
-                    <option value="9">2-Sided (YELLOW)</option>
-                    <option value="10">2-Sided (GREEN)</option>
-                    <option value="11">2-Sided (BLUE)</option>
-                    <option value="12">4-Sided (Multicolor)</option>
-                    <option value="13">4-Sided (RED)</option>
-                    <option value="14">4-Sided (YELLOW) [CALL OF DUTY MODE]</option>
-                    <option value="15">4-Sided (GREEN)</option>
-                    <option value="16">4-Sided (BLUE)</option>
-                </select>
-            </div>
-            <label class="self-center p-2 text-xl text-white">Active Now</label>
-            <div id="music-mode-display" class="self-center p-2 text-xl text-white">
+                <label class="self-center p-2 text-xl text-white">Active Now</label>
+                <div id="music-mode-display" class="self-center p-2 text-xl text-white">
+
+                </div>
 
             </div>
-
         </div>
     </div>
 </body>

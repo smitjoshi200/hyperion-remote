@@ -71,11 +71,11 @@ $(document).ready(function () {
                 $musicmode_switch.prop("checked", true);
                 //Set the music mode display
                 $music_mode_display.text(server_info.info.activeEffects[0].name);
-                console.log(server_info.info.activeEffects[0].name);
+                //console.log(server_info.info.activeEffects[0].name);
             } else {
                 $musicmode_switch.prop("checked", false);
             }
-            console.log(server_info);
+            //console.log(server_info);
 
         }
     });
@@ -85,7 +85,7 @@ $(document).ready(function () {
         $color_val.text($current_color);
         //comvert hex to rgb
         var rgb = hexToRgb($current_color);
-        console.log(rgb["r"]);
+        console.log("Current color set to: " + "{r : " + rgb.r + ", g : " + rgb.g + ", b : " + rgb.b + "}");
     });
     function hexToRgb($hex) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec($hex);
@@ -118,12 +118,12 @@ $(document).ready(function () {
                         "command": "componentstate",
                         "componentstate":
                         {
-                            "component": "ALL",
+                            "component": "LEDDEVICE",
                             "state": $led_status
                         }
                     }),
                     success: function (data) {
-                        console.log(data);
+                        //console.log(data);
                     }
                 });
             } else {
@@ -138,7 +138,7 @@ $(document).ready(function () {
                         "command": "componentstate",
                         "componentstate":
                         {
-                            "component": "ALL",
+                            "component": "LEDDEVICE",
                             "state": $led_status
                         }
                     }),
@@ -181,7 +181,7 @@ $(document).ready(function () {
                     }
                 }),
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                 }
             });
         });
@@ -191,6 +191,7 @@ $(document).ready(function () {
         var $set_gamemode = '';
         $gamemode_switch.click(function () {
             if ($(this).prop("checked") == true) {
+
                 console.log("Gamemode On");
                 $.ajax({
                     url: 'process_requests.php',
@@ -204,7 +205,7 @@ $(document).ready(function () {
                         "origin": "JSON API"
                     }),
                     success: function (data) {
-                        console.log(data);
+                        //console.log(data);
                     }
                 });
             } else if ($(this).prop("checked") == false) {
@@ -218,7 +219,7 @@ $(document).ready(function () {
                         "priority": 64
                     }),
                     success: function (data) {
-                        console.log(data);
+                        //console.log(data);
                     }
                 });
             }
@@ -241,7 +242,7 @@ $(document).ready(function () {
                     "origin": "JSON API"
                 }),
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                 }
             });
         });
@@ -251,6 +252,7 @@ $(document).ready(function () {
         var $set_musicmode = '';
         $musicmode_switch.click(function () {
             if ($(this).prop("checked") == true) {
+
                 $default_music_mode = JSON.stringify({
                     "command": "effect",
                     "effect": {
@@ -271,7 +273,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: localStorage.getItem("current_music_mode"),
                     success: function (data) {
-                        console.log(data);
+                        // console.log(data);
                     }
                 });
             } else if ($(this).prop("checked") == false) {
@@ -286,7 +288,7 @@ $(document).ready(function () {
                         "priority": 64
                     }),
                     success: function (data) {
-                        console.log(data);
+                        //console.log(data);
                     }
                 });
             }
@@ -488,11 +490,30 @@ $(document).ready(function () {
                 data: localStorage.getItem("current_music_mode"),
                 contentType: "application/json",
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                 }
             });
         });
 
+    }
+
+    function detectModeChange() {
+        // if game mode is clicked and set as checked, uncheck music mode
+        $gamemode_switch.click(function () {
+            if ($gamemode_switch.is(':checked')) {
+                console.log("Game mode is checked");
+                $musicmode_switch.attr('checked', false);
+                console.log("Music mode is unchecked");
+            }
+        });
+        // if music mode is clicked and set as checked, uncheck game mode   
+        $musicmode_switch.click(function () {
+            if ($musicmode_switch.is(':checked')) {
+                console.log("Music mode is checked");
+                $gamemode_switch.attr('checked', false);
+                console.log("Game mode is unchecked");
+            }
+        });
     }
 
 
@@ -501,6 +522,7 @@ $(document).ready(function () {
         controlBrightness();
         toggleGamemode();
         toggleMusicMode();
+        detectModeChange();
     }
 
     run();
