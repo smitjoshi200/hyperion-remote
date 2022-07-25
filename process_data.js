@@ -34,7 +34,8 @@ $(document).ready(function () {
         success: function (data) {
             var server_info = JSON.parse(data);
             //Get the current status of the led
-            $current_status = server_info.info.components[0].enabled;
+            // The status of the led is stored in the info.components array at index 8
+            $current_status = server_info.info.components[8].enabled;
             if ($current_status == true) {
                 $led_power_switch.prop("checked", true);
                 $led_status = true;
@@ -79,6 +80,7 @@ $(document).ready(function () {
 
         }
     });
+
 
     $color_input.on("change", function () {
         $current_color = $color_input.val();
