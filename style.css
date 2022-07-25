@@ -286,3 +286,8 @@ body .socials > a:hover {
   display: none;
 }
 
+#mode-panel {
+  border-width: 1px 0 0;
+  width: 100%;
+  padding: 25px 0;
+}
