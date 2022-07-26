@@ -9,6 +9,9 @@ $(document).ready(function () {
     var $color_val = $("#color-val");
     var $music_selected_option = $("#music-mode-select");
     var $music_mode_display = $("#music-mode-display");
+    var $game_mode_container = $("#game-options-container");
+    var $music_mode_container = $("#music-options-container");
+    var $remote_container = $("#remote-container");
     //Misc variables
     var $led_status = false;
     var $current_status;
@@ -39,9 +42,11 @@ $(document).ready(function () {
             if ($current_status == true) {
                 $led_power_switch.prop("checked", true);
                 $led_status = true;
+                $remote_container.css("display", "block");
             } else {
                 $led_power_switch.prop("checked", false);
                 $led_status = false;
+                $remote_container.css("display", "none");
             }
 
             //Get the current brightness of the led
@@ -111,6 +116,7 @@ $(document).ready(function () {
                 console.log("LEDs turned on");
                 $led_status = true;
                 localStorage.setItem("led_status", true);
+                $remote_container.css("display", "block");
                 //send ajax post request to process_requests.php
                 $.ajax({
                     url: 'process_requests.php',
@@ -132,6 +138,7 @@ $(document).ready(function () {
                 console.log("LEDs turned off");
                 $led_status = false;
                 localStorage.setItem("led_status", false);
+                $remote_container.css("display", "none");
                 $.ajax({
                     url: 'process_requests.php',
                     type: 'POST',
@@ -193,6 +200,8 @@ $(document).ready(function () {
         var $set_gamemode = '';
         $gamemode_switch.click(function () {
             if ($(this).prop("checked") == true) {
+                $game_mode_container.slideDown();
+                $music_mode_container.slideUp();
 
                 console.log("Gamemode On");
                 $.ajax({
@@ -212,6 +221,10 @@ $(document).ready(function () {
                 });
             } else if ($(this).prop("checked") == false) {
                 console.log("Gamemode Off");
+                $game_mode_container.slideUp();
+                if ($musicmode_switch.prop("checked") == true) {
+                    $music_mode_container.slideUp();
+                }
                 $.ajax({
                     url: 'process_requests.php',
                     type: 'POST',
@@ -254,7 +267,8 @@ $(document).ready(function () {
         var $set_musicmode = '';
         $musicmode_switch.click(function () {
             if ($(this).prop("checked") == true) {
-
+                $music_mode_container.slideDown();
+                $game_mode_container.slideUp();
                 $default_music_mode = JSON.stringify({
                     "command": "effect",
                     "effect": {
@@ -280,7 +294,7 @@ $(document).ready(function () {
                 });
             } else if ($(this).prop("checked") == false) {
                 console.log("Musicmode Off");
-
+                $music_mode_container.slideUp();
                 $.ajax({
                     url: 'process_requests.php',
                     type: 'POST',
@@ -504,6 +518,7 @@ $(document).ready(function () {
         $gamemode_switch.click(function () {
             if ($gamemode_switch.is(':checked')) {
                 console.log("Game mode is checked");
+
                 $musicmode_switch.attr('checked', false);
                 console.log("Music mode is unchecked");
             }
