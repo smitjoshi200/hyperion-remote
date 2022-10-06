@@ -6,6 +6,7 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="process_data.js"></script>
+    <script type="module" src="lights.js"></script>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -16,7 +17,7 @@
 
 <body class="m-3 p-2">
 
-    <div class="flex flex-col justify-evenly content-between w-full">
+    <div class="flex flex-col justify-evenly content-between w-full" id="tv-remote-container">
         <div id="power-control" class="flex flex-auto justify-center align-middle items-center">
             <div class="power-switch">
                 <input type="checkbox" id="led-power-switch" />
@@ -44,8 +45,10 @@
         </div>
         <div class="hidden z-30" id="remote-container">
             <div id=brightness-control class="flex flex-auto flex-col z-20 w-full align-middle m-auto">
-                <h3 class=" text-white text-center text-xl">Brightness</h3>
-                <div id="brightness-range" class="flex flex-1 flex-col">
+                <span class="material-symbols-sharp text-white text-center text-xl">
+                    light_mode
+                </span>
+                <div id=" brightness-range" class="flex flex-1 flex-col">
                     <!-- Create Brightness slider -->
                     <input class="my-5" id="brightness-slider" type="range" value="0" min="0" max="100"></input>
                     <div class="self-center justify-self-center align-middle justify-center">
@@ -119,6 +122,23 @@
                 </div>
             </div>
         </div>
+
+    </div>
+    <div class="bottom-navigation flex flex-row justify-around w-full fixed bottom-0 text-white">
+
+        <button class="p-2 m-3" id="tv-lights-view">
+            <span class="material-symbols-sharp text-white">
+                tv_gen
+            </span>
+        </button>
+
+        <button class="p-2 m-3" id="bedroom-lights-view">
+            <span class="material-symbols-sharp text-white">
+                bed
+            </span>
+        </button>
+
+
     </div>
 </body>
 
