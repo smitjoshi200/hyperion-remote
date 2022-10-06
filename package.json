@@ -1,0 +1,27 @@
+{
+  "name": "hyperion-remote",
+  "version": "1.0.0",
+  "description": "A remote controller for the Hyperion-NG software",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Indiedude78/hyperion-remote.git"
+  },
+  "keywords": [
+    "remote",
+    "hyperion",
+    "led"
+  ],
+  "author": "Indiedude78",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Indiedude78/hyperion-remote/issues"
+  },
+  "homepage": "https://github.com/Indiedude78/hyperion-remote#readme",
+  "dependencies": {
+    "magic-home": "^2.9.0"
+  }
+}

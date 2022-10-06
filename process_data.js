@@ -12,6 +12,8 @@ $(document).ready(function () {
     var $game_mode_container = $("#game-options-container");
     var $music_mode_container = $("#music-options-container");
     var $remote_container = $("#remote-container");
+    let $tv_lights_view = $("#tv-lights-view");
+    let $bedroom_lights_view = $("#bedroom-lights-view");
     //Misc variables
     var $led_status = false;
     var $current_status;
@@ -533,6 +535,17 @@ $(document).ready(function () {
         });
     }
 
+    function switchLightLocation() {
+        $bedroom_lights_view.on('click', function () {
+            $("#tv-remote-container").addClass('hidden');
+            console.log("Bedroom lights view is clicked");
+        });
+        $tv_lights_view.on('click', function () {
+            $("#tv-remote-container").removeClass('hidden');
+            console.log("TV lights view is clicked");
+        });
+    }
+
 
     function run() {
         controlLEDS();
@@ -540,6 +553,7 @@ $(document).ready(function () {
         toggleGamemode();
         toggleMusicMode();
         detectModeChange();
+        switchLightLocation();
     }
 
     run();
