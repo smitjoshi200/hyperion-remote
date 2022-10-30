@@ -52,11 +52,13 @@
                 </span>
                 <div id=" brightness-range" class="flex flex-1 flex-col">
                     <!-- Create Brightness slider -->
-                    <input class="my-5 range-style" id="brightness-slider" type="range" value="0" min="0"
-                        max="100"></input>
-                    <div class="self-center justify-self-center align-middle justify-center">
-                        <span id="brightness-level"
-                            class="text-white text-center text-2xl decoration-wavy mx-2 py-1">0</span>
+                    <div class="flex flex-col justify-center" id="brightness-holder">
+                        <input class="my-5 range-style" id="brightness-slider" type="range" value="0" min="0"
+                            max="100"></input>
+                        <div class="self-center justify-self-center align-middle justify-center">
+                            <span id="brightness-level"
+                                class="text-white text-center text-2xl decoration-wavy mx-2 py-1">0</span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -189,8 +189,8 @@ input[type='range'] {
 	 border: none;
 }
  .range-style {
-	 width: 400px;
-	 height: 60px;
+	 width: 100%;
+	 height: fit-content;
 	 padding: 20px;
 	 background: #e0e0e0;
 	 border-radius: 10px;
@@ -204,10 +204,9 @@ input[type='range'] {
 	 box-shadow: inset -2px -2px 8px white, inset 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
  .range-style::-webkit-slider-thumb {
-	 position: relative;
-	 top: -50%;
 	 width: 40px;
 	 height: 40px;
+   transform: scale(2);
 	 background-color: #e0e0e0;
 	 background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.8), transparent);
 	 border-radius: 50%;
@@ -218,13 +217,12 @@ input[type='range'] {
 	 align-items: center;
 	 height: 20px;
 	 border-radius: 10px;
-	 box-shadow: inset -2px -2px 8px white, inset 2px 2px 8px rgba(0, 0, 0, 0.5);
+	 box-shadow: inset -2px -2px 8px #302b63, inset 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
  .range-style::-moz-range-thumb {
-	 position: relative;
-	 top: -50%;
 	 width: 40px;
 	 height: 40px;
+   transform: scale(2);
 	 background-color: #e0e0e0;
 	 background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.8), transparent);
 	 border-radius: 50%;
@@ -353,23 +351,13 @@ body .socials > a:hover {
 }
 
 #mode-panel {
-  border-width: 1px 0 0;
   width: 100%;
   padding: 25px 0;
-}
-
-.bottom-navigation {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 50px;
-  background: rgba(240, 240, 240, 0.4);
-  border-top: 1px solid #e5e5e5;
-  
+  border: reset;
 }
 
 #color-wheel-container {
   transform: scale(85%);
   transform: translateY(-10%);
 }
+
